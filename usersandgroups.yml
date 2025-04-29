@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: "Criação de Grupo"
+      group:
+        name: "{{item}}"
+        state: present
+      with_items:
+        - g_ti
+        - g_diretoria
+        - g_suporte
+    - name: "Criação do usuário"
+      user:
+        name: suporte
+        state: present
+        comment: "Suporte TI"
+        uid: 5000
+        shell: /bin/bash
+        group: g_ti
+        group: g_diretoria
+    - name: "Definição de passaword User suporte"    
+      user:
+        name: suporte
+        password: "$y$j9T$qTb.fZkNYY4IIqnOsW5cV.$JuvNZxb8pVkG7nl94RCkANdJJWHaa5yWFEy9QwcjFw4"
+        update_password: always
