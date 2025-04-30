@@ -1,0 +1,23 @@
+editar arquivos nas máquinas clientes
+/etc/hosts para resolução de nomes caso o DNS não esteja configurado
+# ip  nameserver  hostname
+Fazer isso para clientes e host
+
+Configuração do arquivo de configuração, definir servidor, ambiente de trabalho e intervalo de execuçaão:
+Exemplo para máquina com hostname agent pala cliente, e puppet para o host
+**/etc/puppetlabs/puppet/puppet.conf**
+[main]
+certname = agent.asf.com
+server = puppet.asf.com
+environment = production
+runinterval = 10m
+
+Para listar os agentes pendentes de registros no puppet master, basta executar o comando abaixo.
+# puppetserver ca list
+
+Ao receber a lista de agentes pendentes para assinatura executar o comando abaixo para assinar
+# puppetserver ca sign --certname agent.asf.com
+
+Para realizar os testes de comunicação acessar os agentes e digitar o comando
+# puppet agent --test
+
