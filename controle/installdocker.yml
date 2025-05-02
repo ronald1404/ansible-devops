@@ -1,0 +1,45 @@
+---
+- name: Instalar e configurar Docker
+  hosts: puppet
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Instalar dependências
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+        update_cache: yes
+
+    - name: Criar diretório de chaves
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Adicionar chave GPG do Docker
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
+        state: present
+
+    - name: Configurar repositório Docker
+      ansible.builtin.apt_repository:
+        filename: docker
+        repo: "deb [arch={{ ansible_architecture | replace('x86_64', 'amd64') }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+        state: present
+        update_cache: yes
+
+    - name: Instalar pacotes Docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
