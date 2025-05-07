@@ -1,0 +1,8 @@
+Baixar o arquivo zip com do banco de dados de 
+
+https://github.com/rogerramossilva/devops/blob/master/db.zip
+
+
+a linha 'COPY /db/backup.sql /docker-entrypoint-initdb.d' já copia e faz o backup automaticamente do backup.sql
+OBS: no linuxforce é usado o mysql mas na imagem atual é usado o mariadb para acessar o banco.
+'docker exec -it db mariadb -uroot -p12345678'

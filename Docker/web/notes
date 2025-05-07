@@ -1,0 +1,13 @@
+Baixar o site de 
+https://github.com/rogerramossilva/devops/blob/master/express.zip
+
+Editar o ip ou nome da conexão do banco de dados em backup.php
+
+Criar a pasta para o módulo fpm
+'mkdir -p /run/php-fpm'
+
+E ativar para executar em segundo plano com
+'nohup /usr/sbin/php-fpm -F > /dev/null 2>&1 &'
+
+Configurar uma rede com docker network para resolver nomes entre os containers
+Se a conexão com o banco não funcionar usando o  nome do container db usar o ip da máquina host do docker.
