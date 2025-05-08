@@ -1,8 +1,8 @@
-FROM centos:7
-LABEL MAINTAINER Rogerio Martinho
+FROM rockylinux/rockylinux:8.4
+LABEL MAINTAINER Ronald Andrade
 ENV PORT=80
-RUN yum install httpd php mod_php php-mysql -y
+RUN yum install -y httpd php mod_php php-mysqlnd
 COPY /web/. /var/www/html
 EXPOSE $PORT
 WORKDIR /etc/httpd
-CMD ["-D", "FOREGROUND"]
+CMD ["sh", "-c", "mkdir -p /run/php-fpm && php-fpm -D && exec /usr/sbin/httpd -D FOREGROUND"]

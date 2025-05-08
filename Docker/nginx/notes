@@ -1,0 +1,2 @@
+Arquivo com a configuração nginx do load balancer dos servidores webs
+wget https://github.com/rogerramossilva/devops/raw/master/nginx.conf
